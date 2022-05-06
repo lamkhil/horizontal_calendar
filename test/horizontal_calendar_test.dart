@@ -11,7 +11,7 @@ void main() {
           () => tester.pumpWidget(
                 Directionality(
                   child: HorizontalCalendar(
-                    firstDate: null,
+                    firstDate: DateTime(1945),
                     lastDate: DateTime(2019, 11, 20),
                   ),
                   textDirection: TextDirection.ltr,
@@ -29,7 +29,7 @@ void main() {
                 Directionality(
                   child: HorizontalCalendar(
                     firstDate: DateTime(2019, 11, 20),
-                    lastDate: null,
+                    lastDate: DateTime(2045),
                   ),
                   textDirection: TextDirection.ltr,
                 ),
@@ -46,7 +46,7 @@ void main() {
                 Directionality(
                   child: HorizontalCalendar(
                     firstDate: DateTime(2019, 11, 20),
-                    lastDate: null,
+                    lastDate: DateTime(2045),
                     labelOrder: null,
                   ),
                   textDirection: TextDirection.ltr,
@@ -64,7 +64,7 @@ void main() {
                 Directionality(
                   child: HorizontalCalendar(
                     firstDate: DateTime(2019, 11, 20),
-                    lastDate: null,
+                    lastDate: DateTime(2045),
                     labelOrder: [],
                   ),
                   textDirection: TextDirection.ltr,

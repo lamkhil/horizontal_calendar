@@ -8,29 +8,29 @@ class DateWidget extends StatelessWidget {
   final defaultWeekDayFormat = 'EEE';
 
   final DateTime date;
-  final TextStyle monthTextStyle;
-  final TextStyle selectedMonthTextStyle;
-  final String monthFormat;
-  final TextStyle dateTextStyle;
-  final TextStyle selectedDateTextStyle;
-  final String dateFormat;
-  final TextStyle weekDayTextStyle;
-  final TextStyle selectedWeekDayTextStyle;
-  final String weekDayFormat;
-  final VoidCallback onTap;
-  final VoidCallback onLongTap;
-  final Decoration defaultDecoration;
-  final Decoration selectedDecoration;
-  final Decoration disabledDecoration;
+  final TextStyle? monthTextStyle;
+  final TextStyle? selectedMonthTextStyle;
+  final String? monthFormat;
+  final TextStyle? dateTextStyle;
+  final TextStyle? selectedDateTextStyle;
+  final String? dateFormat;
+  final TextStyle? weekDayTextStyle;
+  final TextStyle? selectedWeekDayTextStyle;
+  final String? weekDayFormat;
+  final VoidCallback? onTap;
+  final VoidCallback? onLongTap;
+  final Decoration? defaultDecoration;
+  final Decoration? selectedDecoration;
+  final Decoration? disabledDecoration;
   final bool isSelected;
   final bool isDisabled;
-  final EdgeInsetsGeometry padding;
-  final List<LabelType> labelOrder;
+  final EdgeInsetsGeometry? padding;
+  final List<LabelType>? labelOrder;
   final bool isLabelUppercase;
 
   const DateWidget({
-    Key key,
-    @required this.date,
+    Key? key,
+    required this.date,
     this.onTap,
     this.onLongTap,
     this.isSelected = false,
@@ -73,14 +73,16 @@ class DateWidget extends StatelessWidget {
       child: Container(
         decoration: isSelected
             ? selectedDecoration
-            : isDisabled ? disabledDecoration : defaultDecoration,
+            : isDisabled
+                ? disabledDecoration
+                : defaultDecoration,
         child: Padding(
-          padding: padding,
+          padding: padding!,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              ...labelOrder.map((type) {
-                Text text;
+              ...labelOrder!.map((type) {
+                Text? text;
                 switch (type) {
                   case LabelType.month:
                     text = Text(

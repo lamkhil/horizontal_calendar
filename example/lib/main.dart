@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ const labelWeekDay = 'Week Day';
 
 class DemoWidget extends StatefulWidget {
   const DemoWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -45,8 +46,8 @@ class DemoWidget extends StatefulWidget {
 }
 
 class _DemoWidgetState extends State<DemoWidget> {
-  DateTime firstDate;
-  DateTime lastDate;
+  late DateTime firstDate;
+  late DateTime lastDate;
   String dateFormat = 'dd';
   String monthFormat = 'MMM';
   String weekDayFormat = 'EEE';
@@ -67,9 +68,9 @@ class _DemoWidgetState extends State<DemoWidget> {
 
   int minSelectedDateCount = 1;
   int maxSelectedDateCount = 1;
-  RangeValues selectedDateCount;
+  late RangeValues selectedDateCount;
 
-  List<DateTime> initialSelectedDates;
+  late List<DateTime> initialSelectedDates;
 
   @override
   void initState() {
@@ -85,7 +86,7 @@ class _DemoWidgetState extends State<DemoWidget> {
   }
 
   List<DateTime> feedInitialSelectedDates(int target, int calendarDays) {
-    List<DateTime> selectedDates = List();
+    List<DateTime> selectedDates = [];
 
     for (int i = 0; i < calendarDays; i++) {
       if (selectedDates.length == target) {
@@ -140,7 +141,7 @@ class _DemoWidgetState extends State<DemoWidget> {
                 : null,
           ),
           isDateDisabled: (date) => date.weekday == DateTime.sunday,
-          labelOrder: order.map(toLabelType).toList(),
+          labelOrder: order.map(toLabelType).toList() as List<LabelType>?,
           minSelectedDateCount: minSelectedDateCount,
           maxSelectedDateCount: maxSelectedDateCount,
           initialSelectedDates: initialSelectedDates,
@@ -258,7 +259,7 @@ class _DemoWidgetState extends State<DemoWidget> {
                   hint: 'Select Date Format',
                   value: dateFormat,
                   options: ['dd', 'dd/MM'],
-                  onChange: (format) {
+                  onChange: (dynamic format) {
                     setState(() {
                       forceRender = false;
                       dateFormat = format;
@@ -275,7 +276,7 @@ class _DemoWidgetState extends State<DemoWidget> {
                     'MM',
                     'MMM',
                   ],
-                  onChange: (format) {
+                  onChange: (dynamic format) {
                     setState(() {
                       forceRender = false;
                       monthFormat = format;
@@ -289,7 +290,7 @@ class _DemoWidgetState extends State<DemoWidget> {
                   hint: 'Select Weekday Format',
                   value: weekDayFormat,
                   options: ['EEE', 'EEEE'],
-                  onChange: (format) {
+                  onChange: (dynamic format) {
                     setState(() {
                       forceRender = false;
                       weekDayFormat = format;
@@ -372,7 +373,7 @@ class _DemoWidgetState extends State<DemoWidget> {
                 onCircularRadiusChange: (isSelected) {
                   setState(
                     () {
-                      isCircularRadiusDefault = isSelected;
+                      isCircularRadiusDefault = isSelected ?? false;
                     },
                   );
                 },
@@ -398,7 +399,7 @@ class _DemoWidgetState extends State<DemoWidget> {
                   setState(
                     () {
                       forceRender = false;
-                      isCircularRadiusSelected = isSelected;
+                      isCircularRadiusSelected = isSelected ?? false;
                     },
                   );
                 },
@@ -424,7 +425,7 @@ class _DemoWidgetState extends State<DemoWidget> {
                   setState(
                     () {
                       forceRender = false;
-                      isCircularRadiusDisabled = isSelected;
+                      isCircularRadiusDisabled = isSelected ?? false;
                     },
                   );
                 },
@@ -479,7 +480,7 @@ Future<DateTime> datePicker(
   BuildContext context,
   DateTime initialDate,
 ) async {
-  final selectedDate = await showDatePicker(
+  final selectedDate = await (showDatePicker(
     context: context,
     initialDate: initialDate,
     firstDate: DateTime.now().subtract(
@@ -488,12 +489,12 @@ Future<DateTime> datePicker(
     lastDate: DateTime.now().add(
       Duration(days: 365),
     ),
-  );
+  ) as FutureOr<DateTime>);
   return toDateMonthYear(selectedDate);
 }
 
-LabelType toLabelType(String label) {
-  LabelType type;
+LabelType? toLabelType(String label) {
+  LabelType? type;
   switch (label) {
     case labelMonth:
       type = LabelType.month;
@@ -508,8 +509,8 @@ LabelType toLabelType(String label) {
   return type;
 }
 
-String fromLabelType(LabelType label) {
-  String labelString;
+String? fromLabelType(LabelType label) {
+  String? labelString;
   switch (label) {
     case LabelType.month:
       labelString = labelMonth;
